@@ -1,0 +1,35 @@
+@use 'constants' as *;
+@use 'sass:math';
+
+@function fluid($max: 100, $min: 10, $isEndOfLaptop: false) {
+  $maxViewportWidth: $container-desktop-width; // Убедитесь, что эта переменная определена
+  $minViewportWidth: 390;  
+
+  @if ($isEndOfLaptop) {
+    $minViewportWidth: $container-laptop-width; // Убедитесь, что эта переменная определена
+  }
+
+  $maxSize: math.div($max, 16);
+  $minSize: math.div($min, 16); // Определяем minSize
+  $maxWidth: math.div($maxViewportWidth, 16);
+  $minWidth: math.div($minViewportWidth, 16);
+
+  // Убедитесь, что minSize определен перед использованием
+  @if ($maxWidth == $minWidth) {
+    @warn "Max width and min width are equal. Slope calculation will result in division by zero.";
+    @return clamp(#{$minSize * 1rem}, #{$minSize * 1rem}, #{$maxSize * 1rem});
+  }
+
+  $slope: math.div(($maxSize - $minSize), ($maxWidth - $minWidth));
+  $yAxisIntersections: -$minWidth * $slope + $minSize;
+
+  @return clamp(
+    #{$minSize * 1rem},
+    #{$yAxisIntersections * 1rem} + #{$slope * 100vw},
+    #{$maxSize * 1rem}
+  );
+}
+
+@function fluid-to-laptop($max: 100, $min: 10) {
+  @return fluid($max, $min, true); // Вызываем fluid с параметром true для ноутбука
+}

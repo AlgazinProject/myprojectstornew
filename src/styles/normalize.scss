@@ -1,0 +1,197 @@
+/**
+  1. Нормализация блочной модели и базовых настроек
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/* Настройка для React: обнуляем отступы у корневого элемента */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Гарантирует, что футер можно прижать к низу */
+
+  /* ИСПРАВЛЕНО: заставляем первый внутренний div (который внутри Router) 
+     растягиваться во всю высоту и работать как flex-контейнер */
+  > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+html {
+  /* Плавный скролл и предотвращение скачков интерфейса при появлении скроллбара */
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  /* Запрещает авто-увеличение текста на iOS при смене ориентации */
+  -webkit-text-size-adjust: 100%; 
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.5;
+  /* Включаем качественное сглаживание шрифтов */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ИСПРАВЛЕНО: намертво запрещаем сайту двигаться влево-вправо, 
+     чтобы полностью убрать белую полосу справа */
+  overflow-x: hidden; 
+}
+
+/* ИСПРАВЛЕНО: Говорим контенту всех твоих страниц забирать всё свободное 
+   пространство по высоте, принудительно выталкивая Footer в самый низ экрана */
+section, 
+.brands, 
+.favorites-page, 
+.section-product {
+  flex-grow: 1;
+}
+
+/**
+  2. Сброс списков и отступов для элементов с классами
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+  list-style: none;
+}
+
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  3. Параграфы (улучшено)
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+:where(p:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  4. Ссылки
+ */
+a {
+  color: inherit; /* Больше никаких дефолтных синих ссылок */
+  text-decoration: none; /* Убираем подчеркивание по умолчанию */
+}
+
+/* Для ссылок с классами задаем правильный display */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  5. Элементы форм, кнопки и интерактивность
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent; /* Убирает дефолтный серый фон у кнопок */
+}
+
+button {
+  padding: 0;
+  border: none;
+}
+
+button,
+label,
+select,
+summary {
+  cursor: pointer;
+}
+
+/* Убираем стандартное оформление интерактивных элементов на iOS (Safari) */
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Убираем крестик очистки в полях поиска Safari */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/**
+  6. Мультимедиа и графика
+ */
+img,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Твоя отличная логика для перекраски SVG */
+:where([fill]:not([fill="none"], [fill^="url"])) {
+  fill: currentColor;
+}
+
+:where([stroke]:not([stroke="none"], [stroke^="url"])) {
+  stroke: currentColor;
+}
+
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  7. Таблицы
+ */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+/**
+  8. Доступность (Отключение анимаций)
+ */
+// @media (prefers-reduced-motion: reduce) {
+//   *,
+//   ::before,
+//   ::after {
+//     animation-duration: 0.01ms !important;
+//     animation-iteration-count: 1 !important;
+//     transition-duration: 0.01ms !important;
+//     scroll-behavior: auto !important;
+//   }
+// }

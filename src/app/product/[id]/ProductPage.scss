@@ -1,0 +1,280 @@
+@use '../../../styles/helpers/' as *;
+
+.product-page {
+    padding-bottom: fluid(100, 50);
+
+    &__back-link {
+        display: inline-block;
+        text-decoration: none;
+        margin-bottom: 20px;
+        color: #666;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}
+
+.product-detail {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: start;
+
+    // ТВОЙ РОДНОЙ МИКСИН: Перестраиваем страницу в столбик на планшетах и мобилках
+    @include tablet {
+        flex-direction: column;
+        align-items: stretch; // Растягиваем контент на всю ширину
+        gap: 30px; // Уменьшаем отступ между фото и текстом
+    }
+
+    // Левая колонка с картинкой
+    &__image-box {
+        width: 50%;
+
+        @include tablet {
+            width: 100%; // На мобилке и планшете картинка займет всю ширину
+        }
+    }
+
+    &__img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    // Правая колонка с информацией
+    &__info {
+        width: 60%;
+
+        @include tablet {
+            width: 100%; // Текст разворачивается на всю ширину под фото
+        }
+    }
+
+    &__title {
+        margin: 10px 0;
+        font-size: 28px;
+        font-weight: 600;
+
+        @include mobile {
+            font-size: 22px; // Делаем заголовок чуть компактнее на телефонах
+        }
+    }
+
+    &__brand {
+        text-transform: uppercase;
+        color: #888;
+        font-size: 18px;
+        letter-spacing: 1px;
+
+        @include mobile {
+            font-size: 15px;
+        }
+    }
+
+    &__price {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px 0;
+
+        @include mobile {
+            font-size: 20px;
+            margin: 15px 0;
+        }
+    }
+
+    &__description {
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    &__text {
+        line-height: 1.6;
+        color: #444;
+    }
+
+    &__size {
+        margin-bottom: 50px;
+
+        @include mobile {
+            margin-bottom: 35px; // Уменьшаем мобильный отступ перед кнопкой
+        }
+
+        &-title {
+            margin-bottom: 15px;
+        }
+
+        &-list {
+            display: flex;
+            gap: 15px;
+
+            @include mobile {
+                gap: 10px;
+                flex-wrap: wrap; // Если размеров будет много, они аккуратно перенесутся
+            }
+        }
+
+        &-btn {
+            min-width: 60px;
+            height: 30px;
+            font-weight: 600;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            border: none;
+            padding: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+
+            &--active {
+                background-color: black;
+                color: white;
+                border-color: black;
+            }
+        }
+    }
+
+    &__btn {
+        padding: 15px 30px;
+        background: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: background 0.2s ease;
+        border-radius: 5px;
+
+        @include mobile {
+            width: 100%; // Большая черная кнопка на телефонах растягивается во всю ширину — так удобнее тапать!
+            padding: 16px;
+            font-size: 15px;
+        }
+
+        &:hover {
+            background: #333;
+        }
+
+        &--active {
+            background-color: black !important;
+            color: white !important;
+            border-color: black;
+        }
+    }
+
+   &__features {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    overflow: hidden;
+    max-height: 160px;
+    transition: max-height 0.4s ease;
+
+    &--open {
+        max-height: 2000px;
+    }
+
+    li {
+        position: relative;
+        padding-left: 20px;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #333;
+        list-style: none !important;
+
+        &::marker {
+            content: none !important;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 12px;
+            height: 2px;
+            background-color: #000;
+        }
+    }
+
+    @include mobile {
+        max-height: 130px;   // примерно 3 пункта
+        margin: 15px 0;
+        row-gap: 6px;
+
+        li {
+            font-size: 14px;
+            padding-left: 18px;
+
+            &::before {
+                top: 9px;
+                width: 10px;
+            }
+        }
+
+        &--open {
+            max-height: 3000px;   // с запасом, чтобы точно развернулось
+        }
+    }
+}
+
+&__features-toggle {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 12px 0;                     // большая тап-зона
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;  // убирает серую подсветку тапа на iOS
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    &:active {
+        opacity: 0.4;                     // визуальный отклик на мобилке
+    }
+
+    @include mobile {
+        padding: 14px 0;                  // ещё больше для удобного тапа
+        font-size: 15px;
+    }
+}
+}
+
+.product-page-error {
+    padding: 40px;
+    text-align: center;
+
+    &__link {
+        display: inline-block;
+        margin-top: 15px;
+        color: #0056b3;
+    }
+}

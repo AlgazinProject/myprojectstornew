@@ -1,0 +1,52 @@
+@use '../../../styles/helpers/' as *;
+
+.product {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding-bottom: fluid(100, 50);
+    justify-content: center;
+
+
+     @include tablet {
+        flex-direction: column;
+         gap: 30px;
+     }
+
+      @include mobile {
+        flex-direction: column;
+         gap: 20px;
+     }
+
+    &-title {
+        padding-bottom: 30px;
+
+    }
+
+
+    &-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        align-content: center;
+
+        @include tablet {
+        grid-template-columns: repeat(3, 1fr);
+     }
+
+        @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+     }
+    }
+
+    
+
+    // Левая колонка (список товаров) забирает всё свободное место
+    &__content {
+        flex-grow: 1;
+    }
+
+    // Правая колонка (фильтр) имеет фиксированную ширину
+
+
+}

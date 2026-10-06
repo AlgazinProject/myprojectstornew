@@ -1,0 +1,337 @@
+@use '../../styles/helpers' as *;
+
+.header {
+    // ТВОИ ОБНОВЛЕННЫЕ СТИЛИ (ПОЛНОСТЬЮ СОХРАНЕНЫ)
+    padding-bottom: 20px;
+    margin-bottom: 70px;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eee;
+    position: sticky; // Шапка приклеена к верху сайта
+    top: 0;
+    z-index: 999;
+
+    @include tablet {
+        margin-bottom: 50px;
+    }
+
+    @include mobile {
+        margin-bottom: 30px;
+    }
+
+    &__logo-images {
+        width: 150px;
+
+        @include tablet {
+            position: absolute;
+            left: 50%;
+            top: 50%; // Добавляем выравнивание по вертикали
+            transform: translate(-50%, -50%) !important; // Центрирует намертво по обеим осям относительно всей шапки!
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @include mobile-s {
+            width: 115px;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        position: relative; // Критически важно для выравнивания мобильного поиска
+
+        @include tablet {
+            padding: 15px 20px;
+        }
+
+        @include mobile-s {
+            padding: 15px 10px;
+        }
+    }
+
+    // ТВОЙ ОРИГИНАЛЬНЫЙ ПСЕВДОЭЛЕМЕНТ ЧЁРНОЙ ЛУПЫ
+    &__form-body {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url('/icons/icon-search_black.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 5;
+        }
+    }
+
+    // ========================================================
+    // ЕДИНСТВЕННЫЙ ПОИСК: ДЕСКТОПНЫЙ РЯД + МОБИЛЬНАЯ ВЫПАДАШКА
+    // ========================================================
+    &__form {
+        @include tablet {
+            margin-left: auto; // На ПК прижимает поиск ближе к иконкам
+            margin-right: 20px;
+        }
+
+
+        @include tablet {
+            // СТРОГО С 1023PX: Форма улетает из общего ряда и превращается в выпадающую панель строго под шапкой
+            margin: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+
+            // Дорогая анимация плавного появления сверху вниз
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 990;
+
+            // Заставляем инпут внутри компонента Search тянуться во всю ширину мобильного экрана
+            .search__input {
+                width: 100% !important;
+                height: 42px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+
+            @include mobile-s {
+                padding: 12px 10px;
+            }
+
+            // МАГИЯ: Класс активности из React (когда юзер кликнул на мобильную лупу — поиск выкатывается!)
+            &--open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        column-gap: 20px;
+        align-items: center;
+
+        @include tablet {
+            column-gap: 15px;
+        }
+
+        @include mobile-s {
+            column-gap: 10px;
+        }
+    }
+
+    &__action-images {
+        width: 30px;
+        height: 30px;
+    }
+
+    &__menu-list {
+        display: flex;
+        column-gap: 20px;
+        align-items: center;
+        position: relative;
+
+        @include tablet {
+            flex-direction: column; // Меню идет вертикальным столбиком внутри шторки
+            align-items: flex-start;
+            row-gap: 24px;
+        }
+    }
+
+    &__menu-link {
+        transition: opacity 0.2s ease;
+
+        &__menu-link {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        &--sale {
+            pointer-events: none;
+            cursor: default;
+            /* меняет курсор на обычный */
+            opacity: 0.6;
+            /* делает ссылку визуально неактивной */
+        }
+
+        &:hover {
+            transition: 0.2s;
+            opacity: 0.5;
+        }
+    }
+
+    &__action-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        img,
+        svg {
+            width: 30px !important;
+            height: 30px !important;
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        top: -5px;
+        right: -8px;
+        background-color: #ff4d4f;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+        border: 2px solid #ffffff;
+        line-height: 1;
+        user-select: none;
+    }
+
+    // ==========================================
+    // КНОПКА-ЛУПА (ВИДНА ТОЛЬКО НА ТЕЛЕФОНАХ/ПЛАНШЕТАХ)
+    // ==========================================
+    &__search-toggle {
+        display: none; // Скрыта на ПК по умолчанию
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: #000;
+        transition: color 0.2s;
+
+        @include tablet {
+            display: inline-flex; // Появляется на мобилках рядом с сердцем
+        }
+
+        &--active {
+            color: #ff4d4f; // Лупа краснеет при открытии поиска
+        }
+    }
+
+    // БУРГЕР МЕНЮ
+    &__burger {
+        display: none;
+
+        @include tablet {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            z-index: 1001;
+
+            span {
+                width: 100%;
+                height: 2px;
+                background-color: #000000;
+                border-radius: 2px;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            // Анимация скручивания полосок в красивый крестик
+            &--active {
+                span {
+                    &:nth-child(1) {
+                        transform: translateY(8px) rotate(45deg);
+                    }
+
+                    &:nth-child(2) {
+                        opacity: 0;
+                    }
+
+                    &:nth-child(3) {
+                        transform: translateY(-8px) rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+
+    // ВЫЕЗЖАЮЩАЯ ШТОРКА МОБИЛЬНОГО МЕНЮ
+    &__menu {
+        @include tablet {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 31.5rem;
+            height: 100vh;
+            background-color: #ffffff;
+            padding: 40px 60px 0px 60px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+
+            &--open {
+                transform: translateX(0); // Шторка выезжает
+            }
+        }
+
+        @include mobile-s {
+            width: 100%;
+        }
+    }
+
+    &__menu-title--mobile {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 500;
+        display: none;
+
+        @include tablet {
+            display: block;
+        }
+    }
+
+
+
+
+
+    // ТЕМНЫЙ ЗАДНИЙ БЛЮР-ФОН
+    &__overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        backdrop-filter: blur(2px);
+    }
+}

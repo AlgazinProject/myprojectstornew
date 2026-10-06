@@ -1,0 +1,139 @@
+@use '../../styles/helpers' as *;
+
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &:hover {
+        .card__sizes-block {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__item {
+        position: relative;
+    }
+
+    &__favorite {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        right: 3%;
+        top: 2%;
+        z-index: 99;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+
+        @include mobile {
+            width: 35px;
+            height: 35px;
+            right: 1%;
+        }
+
+        &-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        // БАЗОВЫЙ СТИЛЬ СТРАНИЦЫ: контур черный, внутри — пустота на 100%
+        & .card__favorite-path {
+            stroke: #000000;      // Черная рамка как у тебя на макете
+            stroke-width: 1.8px;  // Оптимальная толщина линии
+            fill: transparent;    // ЖЕСТКО: внутри кристально прозрачно!
+            transition: stroke 0.2s ease, fill 0.2s ease;
+        }
+
+        // 1. ИНТЕРАКТИВ ПРИ НАВЕДЕНИИ МЫШКИ (ХОВЕР)
+        &:hover {
+            .card__favorite-icon {
+                transform: scale(1.1);
+            }
+            .card__favorite-path {
+                stroke: #ff4d4f; // Рамка плавно краснеет
+            }
+        }
+
+        // 2. КЛАСС АКТИВНОСТИ: когда вещь добавлена в избранное (стейт === true)
+        &--active {
+            .card__favorite-path {
+                stroke: #ff4d4f !important; // Рамка становится красной
+                fill: #ff4d4f !important;   // Серединка сочно заливается красным!
+            }
+        }
+    }
+
+    &__images {
+        width: 100%;
+        aspect-ratio: 1 / 1; 
+        object-fit: cover; 
+        border-radius: 10px;
+        transition: opacity 0.3s ease;
+
+        @include mobile {
+            width: 100%;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__brand,
+    &__description,
+    &__price {
+        cursor: default;
+        text-align: left;
+    }
+
+    &__brand {
+        font-size: 14px;
+        margin-top: 12px;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    &__description {
+        font-size: 13px;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    &__price {
+        font-weight: 800; // Плотная жирность 800
+        font-size: 16px;
+        color: #000;
+        margin-bottom: 5px;
+    }
+
+    &__sizes-block {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+        
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s;
+
+        @include tablet {
+            display: none !important;
+        }
+    }
+
+    &__size-item {
+        font-size: 11px;
+        font-weight: 600;
+        color: #555;
+        background-color: #f5f5f5;
+        padding: 2px 5px;
+        border-radius: 3px;
+        border: 1px solid #e8e8e8;
+        user-select: none;
+    }
+}

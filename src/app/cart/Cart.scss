@@ -1,0 +1,275 @@
+@use '../../styles/helpers' as *;
+
+// 1. Главная обертка страницы
+.cart__page {
+    padding-bottom: 100px;
+
+    &-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+        font-weight: 700;
+
+        @include mobile {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+    }
+
+    // Состояние: Когда корзина пустая
+    &-empty {
+        text-align: center;
+        padding-top: 80px;
+        padding-bottom: 150px;
+
+        &-text {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        &-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: #333;
+            }
+        }
+    }
+}
+
+// 2. Двухколоночный блок (когда в корзине есть товары)
+.cart__body {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+
+    // ТВОЙ РОДНОЙ МИКСИН: На планшетах и мобилках перестраиваем колонки в один столбик!
+    @include tablet {
+        flex-direction: column;
+        align-items: stretch; // Растягиваем обе части на всю ширину
+        gap: 30px;
+    }
+}
+
+// 3. ЛЕВАЯ КОЛОНКА: Список товаров
+.cart__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+// Элемент списка (одна строчка с товаром)
+.cart__item {
+    position: relative;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+
+    // АДАПТИВ КАРТОЧКИ: На телефонах делаем размещение более компактным
+    @include mobile {
+        flex-direction: column; // Элементы внутри карточки встают столбиком
+        align-items: flex-start;
+        gap: 15px;
+        padding-top: 35px; // Освобождаем место сверху под крестик удаления
+    }
+
+    &-img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 6px;
+
+        @include mobile {
+            width: 100%; // На мобилке фотка пуховика станет крупной на всю ширину карточки
+            height: 250px;
+        }
+    }
+
+    &-info {
+        flex-grow: 1;
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+
+    &-brand {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #888;
+    }
+
+    &-desc {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &-brand,
+    &-desc,
+    &-price,
+    &-size,
+    &-quantity {
+        margin-bottom: 6px;
+    }
+
+    &-size {
+        font-size: 14px;
+        color: #555;
+
+        span {
+            font-weight: 600;
+            color: #000;
+        }
+    }
+
+    // Блок изменения количества
+    &-quantity {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background-color: #fff;
+        padding: 5px 10px;
+        border-radius: 6px;
+
+        @include mobile {
+            width: 100%;
+            justify-content: space-between; // Кнопки + и - улетают по краям на телефоне
+            padding: 8px 15px;
+        }
+    }
+
+    &-qty-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #eee;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #ddd;
+        }
+    }
+
+    &-qty-num {
+        font-weight: 600;
+        font-size: 15px;
+        min-width: 15px;
+        text-align: center;
+    }
+
+    &-price {
+        font-size: 18px;
+        font-weight: 600;
+        min-width: 100px;
+        text-align: right;
+
+        @include mobile {
+            width: 100%;
+            text-align: left; // На телефоне цену выравниваем по левому краю
+            font-size: 20px;
+            margin-top: 5px;
+        }
+    }
+
+    &-remove-btn {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        font-size: 32px;
+        color: #999;
+        background: none;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #ff4d4f;
+        }
+    }
+}
+
+// 4. ПРАВАЯ КОЛОНКА: Боковая панель (чек)
+.cart__total {
+    width: 340px;
+    flex-shrink: 0;
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    padding: 30px 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+
+    // ТВОЙ РОДНОЙ МИКСИН: На планшетах и мобилках чек занимает 100% ширины экрана
+    @include tablet {
+        width: 100%;
+        flex-shrink: 1;
+    }
+
+    &-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        color: #000;
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 12px;
+    }
+
+    &-final-price {
+        display: flex !important;
+        position: static !important;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 20px;
+        color: #000;
+        margin-top: 20px;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        margin-bottom: 25px;
+        width: 100%;
+        gap: 10px;
+    }
+
+    &-btn {
+        width: 100%;
+        padding: 15px;
+        background-color: #000000;
+        color: white;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #222;
+        }
+    }
+
+
+}

@@ -1,0 +1,28 @@
+.page-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    width: 100%;
+    background-color: #ffffff;      // ← БЕЛЫЙ фон
+
+    &__logo {
+        width: 200px;
+        max-width: 60vw;
+        height: auto;
+        opacity: 0.4;
+        animation: pageLoaderPulse 1.4s ease-in-out infinite;
+        // УБИРАЕМ filter: brightness(0) invert(1) — не нужен, логотип уже чёрный
+    }
+}
+
+@keyframes pageLoaderPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

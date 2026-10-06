@@ -1,0 +1,181 @@
+@use '../styles/helpers' as *;
+
+.home {
+    padding-bottom: 100px;
+
+    &__hero {
+        color: #fff;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 35px 20px 35px 20px;
+        gap: 20px;
+        height: 580px;
+        border-radius: 8px;
+
+        @include mobile{
+             padding: 30px 10px;
+        }
+
+        &-logo {
+            filter: brightness(0) invert(1);
+            width:  fluid(350, 220);
+            margin-bottom: 20px;
+
+        }
+
+        &-title{
+          @include fluid-text(32, 18);
+          text-align: center;
+        }
+
+        &-subtitle {
+            margin-bottom: 20px;
+
+            @include tablet {
+                font-size: 16px;
+                max-width: 490px;
+                text-align: center;
+            }
+
+            @include mobile{
+                font-size: 14px;
+            }
+        }
+
+        &-link {
+            background-color: white;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+
+    &__brands {
+        padding: 100px 0;
+        background-color: #fff;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        overflow: hidden; // ← важно! обрезаем всё, что вылезает
+
+        @include mobile {
+            padding: 50px 0;
+        }
+    }
+
+    &__brands-label {
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #999;
+        margin-bottom: 40px;
+    }
+
+    &__brands-carousel {
+        display: flex; // ← выстраиваем бренды в ряд
+        gap: 80px; // ← расстояние между логотипами
+        width: max-content; // ← контейнер растягивается по содержимому
+        animation: carousel 40s linear infinite; // ← бесконечная анимация
+
+        &:hover {
+            animation-play-state: paused; // ← остановка при наведении
+        }
+
+        @include mobile {
+            gap: 40px;
+        }
+    }
+
+    &__brands-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0; // ← запрет на сжатие
+        opacity: 0.5;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    }
+
+    &__brands-logo {
+        width: 250px;
+        max-width: 250px;
+        object-fit: contain;
+        filter: grayscale(1) brightness(0.2);
+
+        @include tablet {
+            max-width: 140px;
+        }
+
+        @include mobile {
+            max-width: 110px;
+        }
+    }
+
+    @keyframes carousel {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+        &__features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 60px;
+        padding: 100px 0 120px;
+
+        @include tablet {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding: 60px 0 80px;
+        }
+
+        @include mobile {
+            gap: 30px;
+            padding: 50px 0 60px;
+        }
+    }
+
+    &__feature {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__feature-num {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #999;
+        margin-bottom: 8px;
+    }
+
+    &__feature-title {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.3;
+
+        @include mobile {
+            font-size: 18px;
+        }
+    }
+
+    &__feature-text {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #666;
+    }
+}
