@@ -14,21 +14,22 @@
         gap: 20px;
         height: 580px;
         border-radius: 8px;
+        margin-bottom: fluid(100, 50);
 
-        @include mobile{
-             padding: 30px 10px;
+        @include mobile {
+            padding: 30px 10px;
         }
 
         &-logo {
             filter: brightness(0) invert(1);
-            width:  fluid(350, 220);
+            width: fluid(350, 220);
             margin-bottom: 20px;
 
         }
 
-        &-title{
-          @include fluid-text(32, 18);
-          text-align: center;
+        &-title {
+            @include fluid-text(32, 18);
+            text-align: center;
         }
 
         &-subtitle {
@@ -40,7 +41,7 @@
                 text-align: center;
             }
 
-            @include mobile{
+            @include mobile {
                 font-size: 14px;
             }
         }
@@ -131,28 +132,38 @@
         }
     }
 
-        &__features {
+    &__features {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 60px;
         padding: 100px 0 120px;
 
         @include tablet {
-            grid-template-columns: 1fr;
-            gap: 40px;
-            padding: 60px 0 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        @include mobile {
-            gap: 30px;
-            padding: 50px 0 60px;
-        }
+        @include mobile {}
     }
 
     &__feature {
         display: flex;
         flex-direction: column;
         gap: 12px;
+
+        @include tablet {
+            width: fluid(380, 330);
+            padding: 0 10px;
+        }
+
+        
+
+        @include mobile-s {
+            width: fluid(330, 320);
+        }
+
     }
 
     &__feature-num {
