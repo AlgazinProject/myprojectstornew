@@ -47,11 +47,11 @@
         position: relative; // Критически важно для выравнивания мобильного поиска
 
         @include tablet {
-            padding: 15px 20px;
+            padding: 20px 20px;
         }
 
         @include mobile-s {
-            padding: 15px 10px;
+            padding: 20px 10px;
         }
     }
 
@@ -169,13 +169,6 @@
             font-weight: 400;
         }
 
-        &--sale {
-            pointer-events: none;
-            cursor: default;
-            /* меняет курсор на обычный */
-            opacity: 0.6;
-            /* делает ссылку визуально неактивной */
-        }
 
         &:hover {
             transition: 0.2s;

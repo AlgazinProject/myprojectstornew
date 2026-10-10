@@ -50,7 +50,7 @@ const Footer = () => {
                                 <Link href="/return" className="footer__menu-link">Возврат товара</Link>
                             </li>
                             <li className="footer__menu-item">
-                                <a href="#" className="footer__menu-link" id="footer__link-discounts">Скидки и акции 🔥</a>
+                                <Link href="/orders" className="footer__menu-link">Мои заказы</Link>
                             </li>
                         </ul>
                     </div>

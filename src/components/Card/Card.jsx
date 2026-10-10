@@ -8,7 +8,7 @@ const Card = ({ product, favorites, toggleFavorite }) => {
     return (
         <div className="card">
             <div className="card__item">
-                <Link href={`/product/${product.id}`}>
+                <Link href={`/product/${product.slug}`}>
                     <img className="card__images" src={product.imgSrc} alt={product.description} />
                 </Link>
 
@@ -27,7 +27,7 @@ const Card = ({ product, favorites, toggleFavorite }) => {
 
             <div className="card__info">
                 <p className="card__brand">{product.brand}</p>
-                <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: '#000' }}>
+                <Link href={`/product/${product.slug}`} style={{ textDecoration: 'none', color: '#000' }}>
                     <h3 className="card__description">{product.description}</h3>
                 </Link>
                 <p className="card__price">{product.price}</p>

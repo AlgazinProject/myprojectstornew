@@ -20,7 +20,13 @@ const CatalogContent = () => {
   const [currentMin, setCurrentMin] = useState(0);
   const [currentMax, setCurrentMax] = useState(100000);
 
-  const { favorites, toggleFavorite, searchQuery } = useShop();
+ 
+
+  // ... внутри компонента
+  const urlSearchParams = useSearchParams();
+  const searchQuery = urlSearchParams.get('search') || '';
+
+  const { favorites, toggleFavorite } = useShop();
 
   const searchParams = useSearchParams();
   const params = useParams();
@@ -62,7 +68,7 @@ const CatalogContent = () => {
   }, [catalogType, products]);
 
   // Проверки на загрузку и ошибки
-  if (isLoading) return <PageLoader/>;
+  if (isLoading) return <PageLoader />;
 
   if (error) {
     return <div className="container" style={{ padding: '60px 0' }}>Ошибка: {error}</div>;

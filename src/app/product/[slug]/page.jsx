@@ -6,12 +6,12 @@ import { useProducts } from '../../hooks/useProducts';
 import Toast from '../../../components/Toast/Toast';
 import { useShop } from '../../../context/ShopContext.jsx';
 import './ProductPage.scss';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '../../../components/PageLoader/PageLoader.jsx';
 
 const Product = () => {
   const params = useParams();
+  const slug = params.slug;
   const router = useRouter();
-  const id = params.id;
 
   const { products, isLoading, error } = useProducts();  // ← ДОБАВИЛИ useProducts
 
@@ -38,7 +38,7 @@ const Product = () => {
     return <div className="container" style={{ padding: '60px 0' }}>Ошибка: {error}</div>;
   }
 
-  const currentProduct = products.find(item => item.id === Number(id));
+  const currentProduct = products.find(item => item.slug === slug);
 
   if (!currentProduct) {
     return (
