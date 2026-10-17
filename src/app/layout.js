@@ -6,7 +6,15 @@ import { ShopProvider } from "../context/ShopContext.jsx";
 export const metadata = {
   title: "Stone Island Store",
   description: "Интернет-магазин премиальной одежды",
+  formatDetection: {
+    telephone: false,
+    date: false,
+    email: false,
+    address: false,
+  },
 };
+
+
 
 export default function RootLayout({ children }) {
   return (
