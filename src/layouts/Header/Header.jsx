@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import Search from '../../components/Search/Search';
 import { useShop } from '../../context/ShopContext.jsx';
@@ -16,7 +16,7 @@ const Header = () => {
 
   const getIconUrl = (name) => {
     return `/icons/${name}`;
-};
+  };
 
   return (
     <header className="header">
@@ -33,7 +33,7 @@ const Header = () => {
           <span></span>
           <span></span>
         </button>
-          
+
 
 
         {/* &__logo-images — логотип */}
@@ -60,7 +60,9 @@ const Header = () => {
         {/* &__form и &__form-body — выпадающий поиск */}
         <div className={`header__form ${isSearchOpen ? 'header__form--open' : ''}`}>
           <div className="header__form-body">
-            <Search setSearchQuery={setSearchQuery} />
+            <Suspense fallback={null}>
+              <Search setSearchQuery={setSearchQuery} />
+            </Suspense>
           </div>
         </div>
 
