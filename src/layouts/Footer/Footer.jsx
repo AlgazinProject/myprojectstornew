@@ -35,7 +35,7 @@ const Footer = () => {
                                 <Link href="/catalog/accessories" className="footer__menu-link">Аксессуары</Link>
                             </li>
                             <li className="footer__menu-item">
-                                <Link href="/brands" className="footer__menu-link">Бренды</Link>
+                                <Link href="/brand" className="footer__menu-link">Бренды</Link>
                             </li>
                         </ul>
                     </div>

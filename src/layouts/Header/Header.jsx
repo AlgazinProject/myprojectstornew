@@ -53,7 +53,7 @@ const Header = () => {
             <li><Link href="/catalog/shoes" className="header__menu-link" onClick={() => setIsMenuOpen(false)}>Обувь</Link></li>
             <li><Link href="/catalog/accessories" className="header__menu-link" onClick={() => setIsMenuOpen(false)}>Аксессуары</Link></li>
             <li><Link href="/brand" className="header__menu-link" onClick={() => setIsMenuOpen(false)}>Бренды</Link></li>
-            <Link href="/orders" className="header__menu-link" onClick={() => setIsMenuOpen(false)}>Мои заказы</Link>
+            <li><Link href="/orders" className="header__menu-link" onClick={() => setIsMenuOpen(false)}>Мои заказы</Link></li>
           </ul>
         </nav>
 
